@@ -13,7 +13,7 @@ const Kambuh = sequelize.define(
       type: DataTypes.DATE,
       allowNull: false,
     },
-    End: {
+    Ends: {
       type: DataTypes.DATE,
       allowNull: true,
     },
