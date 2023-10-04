@@ -28,10 +28,10 @@ exports.postData = async (req, res) => {
     const newPuff = await Puff.create({ KambuhID: currentKambuhID });
     //BUATTT UPDATEEEE ROWWW COYYYY tiap puff
     const currentKambuh = await Kambuh.findByPk(currentKambuhID);
-    currentKambuh.End = new Date();
+    currentKambuh.Ends = new Date();
     currentKambuh.TotalPuff += 1;
     currentKambuh.LamaKambuh = new Date(
-      currentKambuh.End - currentKambuh.Start
+      currentKambuh.Ends - currentKambuh.Start
     );
     await currentKambuh.save();
 
