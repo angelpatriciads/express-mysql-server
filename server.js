@@ -1,16 +1,20 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const dataRoutes = require("./routes/dataRoutes");
-const sequelize = require("./database/connection");
+const sequelize = require("./config/database");
+const dataRoutes = require("./routes/data");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const app = express();
-const PORT = 3000;
 
 app.use(bodyParser.json());
-app.use("/api", dataRoutes);
+app.use("/data", dataRoutes);
 
-sequelize.sync().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-  });
-});
+// sequelize.sync().then(() => {
+//   app.listen(PORT, () => {
+//     console.log(`Server is running on http://localhost:${PORT}`);
+//   });
+// });
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, console.log("app running"));

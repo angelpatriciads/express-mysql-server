@@ -1,12 +1,21 @@
-const Puff = require("../models/puff");
+const express = require("express");
+const router = express.Router();
+const Puff = require("../models/Puff");
 const Kambuh = require("../models/Kambuh");
 
-exports.getAllData = async (req, res) => {
+// GET semua data
+router.get("/puff", async (req, res) => {
   const allData = await Puff.findAll();
-  res.json(allData);
-};
+  res.json({ results: allData });
+});
 
-exports.postData = async (req, res) => {
+router.get("/kambuh", async (req, res) => {
+  const allData = await Kambuh.findAll();
+  res.json({ results: allData });
+});
+
+// POST data baru
+router.post("/", async (req, res) => {
   try {
     const lastPuff = await Puff.findOne({ order: [["DateTime", "DESC"]] });
 
@@ -26,12 +35,11 @@ exports.postData = async (req, res) => {
     }
 
     const newPuff = await Puff.create({ KambuhID: currentKambuhID });
-    //BUATTT UPDATEEEE ROWWW COYYYY tiap puff
     const currentKambuh = await Kambuh.findByPk(currentKambuhID);
-    currentKambuh.Ends = new Date();
+    currentKambuh.End = new Date();
     currentKambuh.TotalPuff += 1;
     currentKambuh.LamaKambuh = new Date(
-      currentKambuh.Ends - currentKambuh.Start
+      currentKambuh.End - currentKambuh.Start
     );
     await currentKambuh.save();
 
@@ -40,4 +48,6 @@ exports.postData = async (req, res) => {
     console.error("Error:", error.message);
     res.status(500).send("Internal Server Error");
   }
-};
+});
+
+module.exports = router;

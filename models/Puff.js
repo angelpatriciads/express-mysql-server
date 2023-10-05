@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = require("../database/connection");
+const sequelize = require("../config/database");
 
-const puff = sequelize.define(
+const Puff = sequelize.define(
   "Puff",
   {
     PuffID: {
@@ -20,8 +20,8 @@ const puff = sequelize.define(
     },
   },
   {
-    timestamps: false,
+    timestamps: false, // Disable the creation of createdAt and updatedAt fields
   }
 );
 
-module.exports = puff;
+module.exports = Puff;

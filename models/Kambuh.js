@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = require("../database/connection");
+const sequelize = require("../config/database");
 
 const Kambuh = sequelize.define(
   "Kambuh",
@@ -13,7 +13,7 @@ const Kambuh = sequelize.define(
       type: DataTypes.DATE,
       allowNull: false,
     },
-    Ends: {
+    End: {
       type: DataTypes.DATE,
       allowNull: true,
     },
